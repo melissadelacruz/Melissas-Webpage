@@ -1,6 +1,6 @@
 # Melissa De La Cruz – Team Null Terminators
 
-![Melissa De La Cruz](./assets/melissa-profile.jpg)
+![Melissa De La Cruz](selfie.jpeg)
 
 ## Professional Summary
 Melissa De La Cruz is a Computer Engineering student at UC San Diego, specializing in embedded systems, frontend development, and machine learning. With experience across academic research, technical internships, and hackathons, she brings a multidisciplinary approach to problem-solving. As a key contributor to the Null Terminators team, she focuses on building responsive user interfaces and integrating systems that blend hardware and software.
