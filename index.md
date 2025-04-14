@@ -1,4 +1,4 @@
-# Melissa De La Cruz – Team Null Terminators
+# Melissa De La Cruz's Webpage
 
 ![Melissa De La Cruz](selfie.jpeg)
 
