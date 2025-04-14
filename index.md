@@ -6,17 +6,17 @@
 Melissa De La Cruz is a Computer Engineering student at UC San Diego, specializing in embedded systems, frontend development, and machine learning. With experience across academic research, technical internships, and hackathons, she brings a multidisciplinary approach to problem-solving. As a key contributor to the Null Terminators team, she focuses on building responsive user interfaces and integrating systems that blend hardware and software.
 
 ## Role in the Team
-- Frontend development using React and modern CSS frameworks
-- UI/UX design and prototyping with Figma
+- Frontend development using Android Studio and modern CSS frameworks
+- UI/UX design and prototyping with Uizard
 - Collaborating with backend services and database integration
 - Ensuring accessibility, responsiveness, and code quality
 
 ## Technical Skills
 - **Languages**: Python, C, C++, Java, JavaScript, SystemVerilog, MATLAB
-- **Frameworks/Tools**: React, Tailwind CSS, Firebase, Git, Arduino, AWS
+- **Frameworks/Tools**: HTML, CSS, Git, Arduino, AWS
 - **Hardware**: ESP32-S3, Adafruit FLORA, Microcontrollers
 - **Machine Learning**: Decision Trees, KNN, Linear Regression, Jaccard Similarity
-- **Design & Visualization**: Figma, matplotlib, pandas
+- **Design & Visualization**: matplotlib, pandas
 
 ## Education
 **University of California, San Diego (UCSD)**  
