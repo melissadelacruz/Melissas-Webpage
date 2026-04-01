@@ -34,6 +34,7 @@
     <main class="max-w-5xl mx-auto px-6 py-16 grid grid-cols-1 md:grid-cols-3 gap-12">
         
         <div class="space-y-10">
+            <!-- Education -->
             <section>
                 <h2 class="text-xs font-bold uppercase tracking-widest text-slate-400 mb-4">Education</h2>
                 <div class="border-l-2 border-indigo-100 pl-4">
@@ -43,6 +44,7 @@
                 </div>
             </section>
 
+            <!--Technical Stack (Update this later)-->
             <section>
                 <h2 class="text-xs font-bold uppercase tracking-widest text-slate-400 mb-4">Technical Stack</h2>
                 <div class="flex flex-wrap gap-2">
@@ -58,6 +60,7 @@
                 </div>
             </section>
 
+            <!--Research Section-->
             <section>
                 <h2 class="text-xs font-bold uppercase tracking-widest text-slate-400 mb-4">Research</h2>
                 <div class="space-y-4">
@@ -74,22 +77,48 @@
         </div>
 
         <div class="md:col-span-2 space-y-12">
-            
+            <!-- ===================== FEATURED PROJECTS SECTION ===================== -->
             <section id="featured-projects">
                 <h2 class="text-2xl font-bold mb-6">Featured Projects</h2>
+
+                <!-- Container for ALL project cards -->
                 <div class="grid gap-6">
-                    <a href="./tamagotchi/index.html" class="group block p-6 bg-white border border-slate-200 rounded-2xl hover:border-indigo-300 hover:shadow-md transition">
+
+                    <!-- ===================== PROJECT CARD TEMPLATE =====================
+                        HOW TO DUPLICATE:
+                        1. Copy entire <a> block
+                        2. Update:
+                            - href (link)
+                            - title (h3)
+                            - description (p)
+                            - label (Hardware / Full-Stack / ML etc.)
+                    =================================================================== -->
+
+                    <!-- Tamagotchi -->
+                    <a href="./tamagotchi/index.html"
+                    class="group block p-6 bg-white border border-slate-200 rounded-2xl hover:border-indigo-300 hover:shadow-md transition">
+
                         <div class="flex justify-between items-start">
                             <div>
-                                <h3 class="font-bold text-lg group-hover:text-indigo-600 transition">Embedded Tamagotchi</h3>
-                                <p class="text-slate-600 text-sm mt-1">ECE 190 project focusing on SPI display drivers and state-machine logic.</p>
+                                <h3 class="font-bold text-lg group-hover:text-indigo-600 transition">
+                                    Embedded Tamagotchi
+                                </h3>
+                                <p class="text-slate-600 text-sm mt-1">
+                                    ECE 190 project focusing on SPI display drivers and state-machine logic.
+                                </p>
                             </div>
-                            <span class="text-xs font-bold text-indigo-500 uppercase">Hardware</span>
+
+                            <span class="text-xs font-bold text-indigo-500 uppercase">
+                                Hardware
+                            </span>
                         </div>
                     </a>
-                    <a href="https://drive.google.com/drive/folders/17UdaEMPhLPsfijMZbR9ysi19UVU80eSE?usp=drive_link" 
-                       target="_blank"
-                       class="group block p-6 bg-white border border-slate-200 rounded-2xl hover:border-indigo-300 hover:shadow-md transition">
+
+                    <!-- Alarm Robot -->
+                    <a href="https://drive.google.com/drive/folders/17UdaEMPhLPsfijMZbR9ysi19UVU80eSE?usp=drive_link"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="group block p-6 bg-white border border-slate-200 rounded-2xl hover:border-indigo-300 hover:shadow-md transition">
 
                         <div class="flex justify-between items-start">
                             <div>
@@ -103,29 +132,35 @@
                                     Integrated Arduino, 3D printing, and LED displays for an interactive alarm system.
                                 </p>
                             </div>
+
+                            <span class="text-xs font-bold text-indigo-500 uppercase">
+                                Hardware
+                            </span>
                         </div>
                     </a>
 
-                    <a href="https://github.com/melissadelacruz/pokemon-app" class="group block p-6 bg-white border border-slate-200 rounded-2xl hover:border-indigo-300 hover:shadow-md transition">
+                    <!-- Pokemon -->
+                    <a href="https://github.com/melissadelacruz/pokemon-app"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="group block p-6 bg-white border border-slate-200 rounded-2xl hover:border-indigo-300 hover:shadow-md transition">
+
                         <div class="flex justify-between items-start">
                             <div>
-                                <h3 class="font-bold text-lg group-hover:text-indigo-600 transition">Pokemon</h3>
-                                <p class="text-slate-600 text-sm mt-1">Card game for Pokemon enthusiasts.</p>
+                                <h3 class="font-bold text-lg group-hover:text-indigo-600 transition">
+                                    Pokemon
+                                </h3>
+                                <p class="text-slate-600 text-sm mt-1">
+                                    Card game for Pokemon enthusiasts.
+                                </p>
                             </div>
-                            <span class="text-xs font-bold text-indigo-500 uppercase">Full-Stack</span>
+
+                            <span class="text-xs font-bold text-indigo-500 uppercase">
+                                Full-Stack
+                            </span>
                         </div>
                     </a>
-                </div>
-            </section>
 
-            <section>
-                <h2 class="text-2xl font-bold mb-6">Experience</h2>
-                <div class="space-y-6">
-                    <div class="relative pl-6 before:content-[''] before:absolute before:left-0 before:top-2 before:w-1 before:h-12 before:bg-slate-200">
-                        <h3 class="font-bold text-slate-900 italic underline"><a href="https://www.altaeros.com/">Altaeros Research Intern</a></h3>
-                        <p class="text-sm text-slate-500">Station1 Fellowship</p>
-                        <p class="text-sm text-slate-600 mt-2">Developed ML models for weather prediction and aerostat stability control using Python.</p>
-                    </div>
                 </div>
             </section>
 
