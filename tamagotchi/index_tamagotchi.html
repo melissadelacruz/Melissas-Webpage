@@ -56,10 +56,22 @@
                     </li>
                 </ul>
             </div>
-            <div class="bg-slate-200 aspect-video rounded-2xl shadow-inner overflow-hidden">
-                <video class="w-full h-full object-cover" controls>
+            <div class="bg-slate-200 rounded-2xl shadow-inner p-3">
+    
+                <!-- Video -->
+                <video class="w-full rounded-xl" controls>
                     <source src="demo_video.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
                 </video>
+
+                <!-- Description -->
+                <p class="text-sm text-slate-500 mt-3 text-center">
+                    This demo showcases real-time interaction between the ESP32 microcontroller, 
+                    SPI display rendering, and GPIO button inputs (left, center, right). 
+                    The buttons trigger state transitions within the system, demonstrating 
+                    interrupt-driven input handling and dynamic UI updates.
+                </p>
+
             </div>
         </section>
 
