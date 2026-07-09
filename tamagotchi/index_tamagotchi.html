@@ -65,6 +65,46 @@
             </div>
         </section>
 
+        <section id="gallery">
+            <h2 class="text-3xl font-bold mb-8">Project Gallery</h2>
+
+            <div class="grid md:grid-cols-2 gap-6">
+
+                <div>
+                    <img src="images/final_device.jpg"
+                        class="rounded-xl shadow-lg">
+                    <p class="text-sm text-slate-500 mt-2">
+                        Final assembled Tamagotchi device.
+                    </p>
+                </div>
+
+                <div>
+                    <img src="images/device_front.jpg"
+                        class="rounded-xl shadow-lg">
+                    <p class="text-sm text-slate-500 mt-2">
+                        Front view showing OLED display and controls.
+                    </p>
+                </div>
+
+                <div>
+                    <img src="images/device_back.jpg"
+                        class="rounded-xl shadow-lg">
+                    <p class="text-sm text-slate-500 mt-2">
+                        Rear enclosure and battery integration.
+                    </p>
+                </div>
+
+                <div>
+                    <img src="images/internals.jpg"
+                        class="rounded-xl shadow-lg">
+                    <p class="text-sm text-slate-500 mt-2">
+                        Internal PCB and wiring.
+                    </p>
+                </div>
+
+            </div>
+        </section>
+
         <section id="hardware">
             <h2 class="text-3xl font-bold mb-8">Hardware Architecture</h2>
             <div class="grid md:grid-cols-3 gap-6">
@@ -80,6 +120,10 @@
                     <h3 class="font-bold text-lg mb-2">Power</h3>
                     <p class="text-slate-600 text-sm">A Lithium Polymer battery was integrated for its long-term use. (update)</p>
                 </div>
+                <div class="p-6 bg-white border border-slate-200 rounded-xl shadow-sm">
+                    <h3 class="font-bold text-lg mb-2">PCB Design</h3>
+                    <p class="text-slate-600 text-sm">KiCAD was used for the PCB design. JLCPCB was used to manufacture the PCB. </p>
+                </div>
             </div>
         </section>
 
@@ -90,7 +134,7 @@
                     <div class="w-3 h-3 bg-red-500 rounded-full"></div>
                     <div class="w-3 h-3 bg-yellow-500 rounded-full"></div>
                     <div class="w-3 h-3 bg-green-500 rounded-full"></div>
-                    <span class="ml-4 text-slate-400 text-xs font-mono uppercase">pet_logic.cpp</span>
+                    <span class="ml-4 text-slate-400 text-xs font-mono uppercase">pedometer.cpp</span>
                 </div>
                 <pre class="text-indigo-300 text-sm overflow-x-auto"><code>
 #include "pedometer.h"
