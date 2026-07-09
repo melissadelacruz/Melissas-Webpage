@@ -28,7 +28,7 @@
     <header class="max-w-5xl mx-auto px-6 py-20 text-center">
         <h1 class="text-5xl font-extrabold text-slate-900 mb-6">Embedded Tamagotchi</h1>
         <p class="text-xl text-slate-600 max-w-2xl mx-auto mb-8">
-            A hardware-software co-design project focusing on state-machine logic, SPI display drivers, and low-power embedded systems.
+            A fun project focusing on pcb design, firmware development, and hardware implementation of a custom handheld device.
         </p>
         <div class="inline-flex gap-2">
             <span class="px-3 py-1 bg-slate-200 text-slate-700 rounded-full text-xs font-semibold uppercase">C++</span>
@@ -43,18 +43,8 @@
             <div>
                 <h2 class="text-3xl font-bold mb-4">Project Overview</h2>
                 <p class="text-slate-600 mb-4">
-                    The goal was to recreate a classic virtual pet using modern microcontrollers. This project implements a real-time "hunger and happiness" decay system, non-volatile storage for saving pet progress, and a dynamic UI.
+                    The goal was to recreate a classic virtual pet using modern microcontrollers. This project implements a real-time hunger, play, and happiness mood levels, non-volatile storage for saving pet progress, and a dynamic UI.
                 </p>
-                <ul class="space-y-2 text-slate-700">
-                    <li class="flex items-center">
-                        <svg class="w-5 h-5 mr-2 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
-                        Custom interrupt-driven button debouncing.
-                    </li>
-                    <li class="flex items-center">
-                        <svg class="w-5 h-5 mr-2 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
-                        Optimized SPI display updates for 30FPS performance.
-                    </li>
-                </ul>
             </div>
             <div class="bg-slate-200 rounded-2xl shadow-inner p-3">
     
@@ -80,21 +70,21 @@
             <div class="grid md:grid-cols-3 gap-6">
                 <div class="p-6 bg-white border border-slate-200 rounded-xl shadow-sm">
                     <h3 class="font-bold text-lg mb-2">Microcontroller</h3>
-                    <p class="text-slate-600 text-sm">Utilizing the ESP32-S3 for its dual-core processing and ample GPIO for peripheral expansion.</p>
+                    <p class="text-slate-600 text-sm">The ESP-32-s3, provided by UCSD's Envision, was utilized for this project.</p>
                 </div>
                 <div class="p-6 bg-white border border-slate-200 rounded-xl shadow-sm">
                     <h3 class="font-bold text-lg mb-2">Display</h3>
-                    <p class="text-slate-600 text-sm">4.0" ST7796S TFT display using SPI protocol with DMA for smooth sprite rendering.</p>
+                    <p class="text-slate-600 text-sm">The 0.96" SPI Serial 128*64OLED LCD Display SSD1306 was used.</p>
                 </div>
                 <div class="p-6 bg-white border border-slate-200 rounded-xl shadow-sm">
                     <h3 class="font-bold text-lg mb-2">Power</h3>
-                    <p class="text-slate-600 text-sm">LiPo battery management with deep-sleep modes to maximize device longevity.</p>
+                    <p class="text-slate-600 text-sm">A Lithium Polymer battery was integrated for its long-term use. (update)</p>
                 </div>
             </div>
         </section>
 
         <section id="software">
-            <h2 class="text-3xl font-bold mb-8">Software Implementation</h2>
+            <h2 class="text-3xl font-bold mb-8">Software Implementation (of pedometer)</h2>
             <div class="bg-slate-900 rounded-2xl p-8 shadow-xl overflow-hidden">
                 <div class="flex items-center gap-2 mb-4">
                     <div class="w-3 h-3 bg-red-500 rounded-full"></div>
@@ -103,16 +93,137 @@
                     <span class="ml-4 text-slate-400 text-xs font-mono uppercase">pet_logic.cpp</span>
                 </div>
                 <pre class="text-indigo-300 text-sm overflow-x-auto"><code>
-void updatePetStats() {
-    // Stat decay over time using millis() tracking
-    if (currentMillis - previousMillis >= DECAY_INTERVAL) {
-        hunger -= 1;
-        happiness -= 0.5;
-        
-        if (hunger < 10) triggerAlert(LOW_FOOD_ICON);
-        previousMillis = currentMillis;
+#include "pedometer.h"
+
+Pedometer::Pedometer() {
+    windowSize = DEFAULT_WINDOW;
+    buffer = new float[windowSize];
+    bufIndex = 0;
+    stepCount = 0;
+    happiness = 0;
+    stepDetected = false;
+    baseline = 29.0;
+    lastStepTime = 0;
+    
+    // Initialize buffer
+    for (int i = 0; i < windowSize; i++) {
+        buffer[i] = 0;
     }
 }
+
+void Pedometer::begin() {
+    bufIndex = 0;
+    stepCount = 0;
+    happiness = 0;
+    stepDetected = false;
+    lastStepTime = 0;
+    
+    for (int i = 0; i < windowSize; i++) {
+        buffer[i] = 0;
+    }
+}
+
+
+// ---- needs to be more accurate (but good results when attatched to hip/belt) -----
+
+bool Pedometer::update(float ax, float ay, float az) {
+    float l1 = calculateL1Norm(ax, ay, az);
+    
+    // Add to buffer (rolling buffer for incoming data)
+    buffer[bufIndex] = l1;
+    bufIndex = (bufIndex + 1) % windowSize;
+    
+    float avg = calculateMovingAverage();
+    float dt = avg - baseline; //comparing delta to a calibrated baseline (looking for movement above baseline level)
+    
+    // DEBUG: Print values every 1 second
+    static unsigned long lastDebugPrint = 0;
+    if (millis() - lastDebugPrint > 1000) {
+        lastDebugPrint = millis();
+        Serial.print("L1: ");
+        Serial.print(l1);
+        Serial.print(" | Avg: ");
+        Serial.print(avg);
+        Serial.print(" | Baseline: ");
+        Serial.print(baseline);
+        Serial.print(" | dt: ");
+        Serial.print(dt);
+        Serial.print(" | StepDetected: ");
+        Serial.print(stepDetected ? "true" : "false");
+        Serial.print(" | Steps: ");
+        Serial.println(stepCount);
+    }
+    
+    bool stepOccurred = false;
+    
+    if (detectStep(dt) && !stepDetected) {
+        stepCount++;
+        stepDetected = true;
+        lastStepTime = millis();
+        stepOccurred = true;
+        
+        Serial.print("*** STEP DETECTED! *** Total: ");
+        Serial.println(stepCount);
+        
+        if (stepCount % 15 == 0 && stepCount != 0) {
+            if (happiness < 5) {
+                happiness++;
+                Serial.print("Happiness increased to: ");
+                Serial.println(happiness);
+            }
+        }
+    }
+    
+    if (dt < 1.0) {
+        stepDetected = false;
+    }
+    
+    return stepOccurred;
+}
+
+void Pedometer::resetSteps() {
+    stepCount = 0;
+}
+
+void Pedometer::setStepCount(int value) {
+    if (value >= 0) {
+        stepCount = value;
+    }
+}
+
+void Pedometer::setWindowSize(int size) {
+    delete[] buffer;
+    windowSize = size;
+    buffer = new float[windowSize];
+    bufIndex = 0;
+    
+    for (int i = 0; i < windowSize; i++) {
+        buffer[i] = 0;
+    }
+}
+
+float Pedometer::calculateL1Norm(float ax, float ay, float az) { // manhattan distance (ideal for noisy data)
+    return abs(ax) + abs(ay) + abs(az);
+}
+
+float Pedometer::calculateMovingAverage() { //averages the last several samples 
+    float avg = 0;
+    for (int i = 0; i < windowSize; i++) {
+        avg += buffer[i];
+    }
+    return avg / windowSize;
+}
+
+bool Pedometer::detectStep(float dt) {
+    return dt > 2.0;  // Try changing this to 1.0 or 1.5 if needed (detects if step is dt is higher than 2.0)
+}
+
+void Pedometer::setHappiness(int value) {
+    if (value >= 0 && value <= 5) {
+        happiness = value;
+    }
+}
+
                 </code></pre>
             </div>
         </section>
